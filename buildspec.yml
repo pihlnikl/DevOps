@@ -15,7 +15,8 @@ phases:
   pre_build:
     commands:
       - npm install
-      - yarn install;yarn test
+      - yarn install
+      - yarn test
       - yarn add @slack/bolt
       - yarn add -D nodemon dotenv
     
