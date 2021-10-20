@@ -5,35 +5,18 @@ phases:
     runtime-versions:
      nodejs: 14
     commands:
-    
-    - bash -c "$(curl -fsSL https://raw.githubusercontent.com/thii/aws-codebuild-extras/master/install)"
+    - echo update npm...
+    - npm install -g n
+    - n latest
+    - npm update -g npm
+    - node -v
+    - npm -v
 
-    - npm install -g @angular/cli
     - npm install -g yarn
-    
-    - apt-get update -y
-    
-    - apt-get install -y apt-transport-https
-    
-    - apt-get install -y libxcursor1
-    - apt-get install -y libgtk-3-dev
-    - apt-get install -y libxss1
-    - apt-get install -y libasound2
-    - apt-get install -y libnspr4
-    - apt-get install -y libnss3
-    - apt-get install -y libx11-xcb1
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-
-    - sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-
-    - apt-get update -y
-    - apt install -y firefox
-    - apt install -y google-chrome-stable
-    - apt install -y xvfb
+    - yarn -v
     
   pre_build:
     commands:
-      - cd Devops
       - npm install
       - yarn install
     
@@ -43,7 +26,6 @@ phases:
       - ng build --prod
       - echo Running test...
       - echo starting...
-      - xvfb-run npm run test:ci
       - yarn run build
   post_build:
     commands:
