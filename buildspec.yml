@@ -3,12 +3,13 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-     nodejs: 10
+     nodejs: 14
     commands:
     
     - bash -c "$(curl -fsSL https://raw.githubusercontent.com/thii/aws-codebuild-extras/master/install)"
 
     - npm install -g @angular/cli
+    - npm install -g yarn
     
     - apt-get update -y
     
@@ -34,6 +35,7 @@ phases:
     commands:
       - cd Devops
       - npm install
+      - yarn install
     
   build:
     commands:    
@@ -42,10 +44,11 @@ phases:
       - echo Running test...
       - echo starting...
       - xvfb-run npm run test:ci
+      - yarn run build
   post_build:
     commands:
       - echo cp to s3
-      - aws s3 sync . s3://devopsprojekt/DevOps --delete
+      - aws s3 sync . s3://pihlnikldevops --delete
       - echo Build completed on `date`
 artifacts:
   files:
