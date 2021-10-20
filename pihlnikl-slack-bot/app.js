@@ -129,12 +129,12 @@ app.message(/hey/, async ({ command, say }) => {
     try {
       say("Yaaay! that command works!");
     } catch (error) {
-        console.log("err")
+        console.log("err");
       console.error(error);
     }
 });
 (async () => {
-  const port = 3000
+  const port = 3000;
   // Start your app
   await app.start(process.env.PORT || port);
   console.log(`⚡️ Slack Bolt app is running on port ${port}!`);
