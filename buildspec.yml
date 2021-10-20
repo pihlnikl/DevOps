@@ -1,0 +1,55 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+     nodejs: 10
+    commands:
+    
+    - bash -c "$(curl -fsSL https://raw.githubusercontent.com/thii/aws-codebuild-extras/master/install)"
+
+    - npm install -g @angular/cli
+    
+    - apt-get update -y
+    
+    - apt-get install -y apt-transport-https
+    
+    - apt-get install -y libxcursor1
+    - apt-get install -y libgtk-3-dev
+    - apt-get install -y libxss1
+    - apt-get install -y libasound2
+    - apt-get install -y libnspr4
+    - apt-get install -y libnss3
+    - apt-get install -y libx11-xcb1
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+
+    - sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+
+    - apt-get update -y
+    - apt install -y firefox
+    - apt install -y google-chrome-stable
+    - apt install -y xvfb
+    
+  pre_build:
+    commands:
+      - cd Devops
+      - npm install
+    
+  build:
+    commands:    
+      - echo Build started on `date`
+      - ng build --prod
+      - echo Running test...
+      - echo starting...
+      - xvfb-run npm run test:ci
+  post_build:
+    commands:
+      - echo cp to s3
+      - aws s3 sync . s3://devopsprojekt/DevOps --delete
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
+  name: build-$(date +%Y-%n-&d)
+  base-directory: "."
