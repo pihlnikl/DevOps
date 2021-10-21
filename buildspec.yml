@@ -22,14 +22,13 @@ phases:
   build:
     commands:    
       - echo Build started on `date`
-      - ng build --prod
       - echo Running test...
       - echo starting...
       - yarn run build
   post_build:
     commands:
       - echo cp to s3
-      - aws s3 sync . s3://pihlnikldevops --delete
+      - aws s3 sync . s3://pihlnikldevops/projectArtifacts --delete
       - echo Build completed on `date`
 artifacts:
   files:
