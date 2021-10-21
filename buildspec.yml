@@ -8,27 +8,23 @@ phases:
     - echo update npm...
     - npm update -g npm
     - npm -v
-
     - npm install -g yarn
     - yarn -v
-    
   pre_build:
     commands:
       - npm install
       - yarn install
       - yarn add @slack/bolt
       - yarn add -D nodemon dotenv
-    
   build:
     commands:    
       - echo Build started on `date`
       - echo Running test...
       - echo starting...
-      - yarn run build
+      - yarn run dev
   post_build:
     commands:
       - echo cp to s3
-      - aws s3 sync . s3://pihlnikldevops/projectArtifacts --delete
       - echo Build completed on `date`
 artifacts:
   files:
