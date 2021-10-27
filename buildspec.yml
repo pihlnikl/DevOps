@@ -22,6 +22,7 @@ phases:
       - echo Build started on `date`
       - echo Running test...
       - echo starting...
+      - yarn test
   post_build:
     commands:
       - echo cp to s3
