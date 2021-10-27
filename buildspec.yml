@@ -24,7 +24,7 @@ phases:
   post_build:
     commands:
       - echo cp to s3
-      - aws s3 sync . s3://pihlnikldevops/projectArtifacts/ --delete
+      - aws s3 sync . s3://pihlnikldevops/projectArtifacts --delete
       - echo Build completed on `date`
 artifacts:
   files:
