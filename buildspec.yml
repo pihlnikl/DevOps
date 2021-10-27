@@ -16,8 +16,8 @@ phases:
       - yarn add @slack/bolt
       - yarn add -D nodemon
       - yarn add -D dotenv
-      - yarn add --dev jest
       - cd pihlnikl-slack-bot
+      - yarn add --dev jest
   build:
     commands:    
       - echo Build started on `date`
