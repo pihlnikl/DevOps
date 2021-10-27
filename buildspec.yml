@@ -12,16 +12,17 @@ phases:
     - yarn -v
   pre_build:
     commands:
-      - npm install
       - yarn install
       - yarn add @slack/bolt
       - yarn add -D nodemon
       - yarn add -D dotenv
+      - yarn add --dev jest
   build:
     commands:    
       - echo Build started on `date`
       - echo Running test...
       - echo starting...
+      - yarn test
   post_build:
     commands:
       - echo cp to s3
